@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class DiceManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public int[] diceRoll;
 
-    // Update is called once per frame
-    void Update()
+    public int GetDiceValue(int index)
     {
-        
+        return diceRoll[index];
     }
 }
