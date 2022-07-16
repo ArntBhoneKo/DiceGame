@@ -32,7 +32,7 @@ public class ButtonControl : MonoBehaviour
         dice2 = (Random.Range(0, 5));
         dice3 = (Random.Range(0, 5));
         dice4 = (Random.Range(0, 5));
-        diceTotal = ((dice1 + dice2) + (dice3 + dice4));
+        diceTotal = (((dice1 + dice2) + (dice3 + dice4)) + 4);
         FindObjectOfType<AnimateManager>().Roll(dice1, dice2, dice3, dice4);
 
         buttonpressed = true;
@@ -63,7 +63,7 @@ public class ButtonControl : MonoBehaviour
         edice2 = (Random.Range(0, 5));
         edice3 = (Random.Range(0, 5));
         edice4 = (Random.Range(0, 5));
-        ediceTotal = ((edice1 + edice2) + (edice3 + edice4));
+        ediceTotal = (((edice1 + edice2) + (edice3 + edice4)) + 4);
         FindObjectOfType<AnimateManager>().EnemyRoll(edice1, edice2, edice3, edice4);
 
         yield return new WaitForSecondsRealtime(FindObjectOfType<AnimateManager>().rollTime + FindObjectOfType<GameManager>().atkTime);
@@ -76,6 +76,13 @@ public class ButtonControl : MonoBehaviour
             FindObjectOfType<GameManager>().eluckyRoll = true;
         }
         
+    }
+
+    public void HpUpgrade()
+    {
+        FindObjectOfType<GameManager>().playerUnit.HpUpgrade(FindObjectOfType<UIManager>().hearts);
+        FindObjectOfType<UIManager>().CloseWinScreen();
+        FindObjectOfType<GameManager>().NextRound();
     }
 
     

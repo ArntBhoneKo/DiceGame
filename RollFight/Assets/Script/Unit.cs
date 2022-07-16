@@ -35,4 +35,22 @@ public class Unit : MonoBehaviour
         yield return new WaitForSeconds(1f);
         dmgText.text = "";
     }
+
+    public void HpUpgrade(int amount)
+    {
+        maxhp = maxhp + (amount * 2);
+        currenthp = currenthp + (amount * 2);
+    }
+    public void AtkUpgrade(int amount)
+    {
+        atk = atk + amount;
+    }
+    public void DefUpgrade(int amount)
+    {
+        def = def + amount;
+    }
+    public void Heal(int amount)
+    {
+        currenthp = currenthp + (amount * 5);
+    }
 }

@@ -7,15 +7,16 @@ public enum BattleState { START, PLAYERTURN, ENERMYTURN, WON, LOST }
 public class GameManager : MonoBehaviour
 {
     public GameObject playerPrefab;
-    public GameObject enemyPrefab;
+    public GameObject[] enemyPrefab;
     public Transform playerBattleStation;
     public Transform enemyBattleStation;
-
-    Unit playerUnit;
+    GameObject enemyGO;
+    public Unit playerUnit;
     Unit enemyUnit;
     public float atkTime = 1f;
     public bool luckyRoll = false;
     public bool eluckyRoll = false;
+    public int currentRound = 0;
     public BattleState state;
 
     // Start is called before the first frame update
@@ -31,12 +32,13 @@ public class GameManager : MonoBehaviour
         FindObjectOfType<AnimateManager>().playerAnimator = playerGO.transform.GetChild(0).gameObject.GetComponent<Animator>();
         playerUnit = playerGO.GetComponent<Unit>();
 
-        GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
+        enemyGO = Instantiate(enemyPrefab[currentRound], enemyBattleStation);
         FindObjectOfType<AnimateManager>().enemyAnimator = enemyGO.transform.GetChild(0).gameObject.GetComponent<Animator>();
         enemyUnit = enemyGO.GetComponent<Unit>();
 
         FindObjectOfType<UIManager>().ChangeStatsEnemy(enemyUnit);
         FindObjectOfType<UIManager>().ChangeStatsPlayer(playerUnit);
+        currentRound++;
 
         yield return new WaitForSeconds(1f);
 
@@ -77,7 +79,7 @@ public class GameManager : MonoBehaviour
     {
         if(state == BattleState.WON)
         {
-            //After win
+            FindObjectOfType<UIManager>().OpenWinScreen();
         }
         else if(state == BattleState.LOST)
         {
@@ -164,5 +166,22 @@ public class GameManager : MonoBehaviour
     {
         FindObjectOfType<UIManager>().ChangeStatsEnemy(enemyUnit);
         FindObjectOfType<UIManager>().ChangeStatsPlayer(playerUnit);
+    }
+
+    public void NextRound()
+    {
+        if (currentRound < 10)
+        {
+            Destroy(enemyGO);
+            enemyGO = Instantiate(enemyPrefab[currentRound], enemyBattleStation);
+            FindObjectOfType<AnimateManager>().enemyAnimator = enemyGO.transform.GetChild(0).gameObject.GetComponent<Animator>();
+            enemyUnit = enemyGO.GetComponent<Unit>();
+
+            FindObjectOfType<UIManager>().ChangeStatsEnemy(enemyUnit);
+            FindObjectOfType<UIManager>().ChangeStatsPlayer(playerUnit);
+            currentRound++;
+
+            PlayerTurn();
+        }
     }
 }

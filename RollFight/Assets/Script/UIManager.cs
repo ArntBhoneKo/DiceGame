@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     public Sprite enemyTurn;
     public Sprite playerTurn;
     public GameObject again;
+    public GameObject winScreen;
 
     [Header("Enemy")]
     public TextMeshProUGUI nameText;
@@ -25,6 +26,19 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI pdefText;
     public Slider phpSlider;
 
+    [Header("Cards")]
+    public Sprite[] heartsCard;
+    public int hearts;
+    public GameObject heartbtn;
+    public Sprite[] spadeCard;
+    public int spades;
+    public GameObject spadebtn;
+    public Sprite[] diamondCard;
+    public int diamonds;
+    public GameObject diamondbtn;
+    public Sprite[] cloverCard;
+    public GameObject cloverbtn;
+    public int clover;
     
     public void ChangeStatsEnemy(Unit unit)
     {
@@ -66,6 +80,51 @@ public class UIManager : MonoBehaviour
         again.SetActive(true);
         yield return new WaitForSeconds(1f);
         again.SetActive(false);
+    }
+
+    public void OpenWinScreen()
+    {
+        StartCoroutine(SetAllcard());
+    }
+
+    IEnumerator SetAllcard()
+    {
+        hearts = (Random.Range(0, 12));
+        spades = (Random.Range(0, 12));
+        diamonds = (Random.Range(0, 12));
+        clover = (Random.Range(0, 12));
+
+        yield return new WaitForSeconds(2f);
+        winScreen.SetActive(true);
+        SetHeartsCard(hearts);
+        SetSpadeCard(spades);
+        SetDiamondCard(diamonds);
+        SetCloverCard(clover);
+    }
+
+    void SetHeartsCard(int index)
+    {
+        heartbtn.GetComponent<Image>().sprite = heartsCard[index];
+    }
+
+    void SetSpadeCard(int index)
+    {
+        spadebtn.GetComponent<Image>().sprite = spadeCard[index];
+    }
+
+    void SetDiamondCard(int index)
+    {
+        diamondbtn.GetComponent<Image>().sprite = diamondCard[index];
+    }
+
+    void SetCloverCard(int index)
+    {
+        cloverbtn.GetComponent<Image>().sprite = cloverCard[index];
+    }
+
+    public void CloseWinScreen()
+    {
+        winScreen.SetActive(false);
     }
 
 }
