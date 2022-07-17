@@ -9,15 +9,17 @@ public class Unit : MonoBehaviour
     public int maxhp;
     public int currenthp;
     public int atk;
-    public int def;
-    int damage;
+    public float def;
+    float damage;
     public TextMeshProUGUI dmgText;
+    public AudioClip myAtk;
+    public AudioClip myDead;
 
-    public bool TakeDamage(int dice, int dmg)
+    public bool TakeDamage(float dice, float dmg)
     {
-        damage = (dice * (dmg - (def / 10)));
-        currenthp -= damage;
-        StartCoroutine(ShowPlayerDmg(damage));
+        damage = (dice * (dmg / def));
+        currenthp -= Mathf.RoundToInt(damage);
+        StartCoroutine(ShowPlayerDmg(Mathf.RoundToInt(damage)));
 
         if(currenthp <= 0)
         {
@@ -36,6 +38,14 @@ public class Unit : MonoBehaviour
         dmgText.text = "";
     }
 
+    public void UpgradeAll()
+    {
+        HpUpgrade(5);
+        AtkUpgrade(2);
+        DefUpgrade(2);
+        Heal(10);
+    }
+
     public void HpUpgrade(int amount)
     {
         maxhp = maxhp + (amount * 2);
@@ -52,5 +62,9 @@ public class Unit : MonoBehaviour
     public void Heal(int amount)
     {
         currenthp = currenthp + (amount * 5);
+        if (maxhp < currenthp)
+        {
+            currenthp = maxhp;
+        }
     }
 }

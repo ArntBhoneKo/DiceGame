@@ -283,11 +283,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: Golem
-  maxhp: 100
-  currenthp: 100
-  atk: 5
-  def: 4
+  maxhp: 150
+  currenthp: 150
+  atk: 10
+  def: 15
   dmgText: {fileID: 0}
+  myAtk: {fileID: 8300000, guid: 27e4e0e1b1497b84dbc9994350a0be17, type: 3}
+  myDead: {fileID: 8300000, guid: 3e062815bd5f2b0429c44046e40c0593, type: 3}
 --- !u!1 &7089935258866708767
 GameObject:
   m_ObjectHideFlags: 0

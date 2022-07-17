@@ -285,9 +285,11 @@ MonoBehaviour:
   unitName: Worm
   maxhp: 50
   currenthp: 50
-  atk: 1
-  def: 0
+  atk: 3
+  def: 1
   dmgText: {fileID: 0}
+  myAtk: {fileID: 8300000, guid: 7bf8ba2bedf30be4d85eeed625017e3e, type: 3}
+  myDead: {fileID: 8300000, guid: 01634153e2041534da76c6ce30d06cb6, type: 3}
 --- !u!1 &7089935258866708767
 GameObject:
   m_ObjectHideFlags: 0

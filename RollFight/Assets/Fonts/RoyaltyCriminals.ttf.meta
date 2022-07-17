@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 5be901faa1b907c4783ad5da44c4aa9a
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Royalty Criminals
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 50b72c635a0f202428468fbf83a874ec, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

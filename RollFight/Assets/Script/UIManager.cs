@@ -11,6 +11,11 @@ public class UIManager : MonoBehaviour
     public Sprite playerTurn;
     public GameObject again;
     public GameObject winScreen;
+    public GameObject loseScreen;
+    public GameObject endGameScreen;
+    public GameObject menuScreen;
+    public GameObject creditScreen;
+    public GameObject guideScreen;
 
     [Header("Enemy")]
     public TextMeshProUGUI nameText;
@@ -82,11 +87,6 @@ public class UIManager : MonoBehaviour
         again.SetActive(false);
     }
 
-    public void OpenWinScreen()
-    {
-        StartCoroutine(SetAllcard());
-    }
-
     IEnumerator SetAllcard()
     {
         hearts = (Random.Range(0, 12));
@@ -122,9 +122,53 @@ public class UIManager : MonoBehaviour
         cloverbtn.GetComponent<Image>().sprite = cloverCard[index];
     }
 
+    public void OpenWinScreen()
+    {
+        StartCoroutine(SetAllcard());
+    }
+
     public void CloseWinScreen()
     {
         winScreen.SetActive(false);
+    }
+
+    public void OpenLoseScreen()
+    {
+        loseScreen.SetActive(true);
+    }
+
+    public void CloseLoseScreen()
+    {
+        loseScreen.SetActive(false);
+    }
+
+    public void EndGameScreen()
+    {
+        endGameScreen.SetActive(true);
+    }
+
+    public void OpenCreditScreen()
+    {
+        creditScreen.SetActive(true);
+        menuScreen.SetActive(false);
+    }
+
+    public void CloseCreditScreen()
+    {
+        creditScreen.SetActive(false);
+        menuScreen.SetActive(true);
+    }
+
+    public void OpenGuideScreen()
+    {
+        guideScreen.SetActive(true);
+        menuScreen.SetActive(false);
+    }
+
+    public void CloseGuideScreen()
+    {
+        guideScreen.SetActive(false);
+        menuScreen.SetActive(true);
     }
 
 }

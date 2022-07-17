@@ -203,7 +203,7 @@ MonoBehaviour:
   unitName: Player
   maxhp: 100
   currenthp: 100
-  atk: 2
+  atk: 3
   def: 3
   dmgText: {fileID: 0}
 --- !u!1 &7290713460172606428

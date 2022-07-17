@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
         FindObjectOfType<AnimateManager>().enemyAnimator = enemyGO.transform.GetChild(0).gameObject.GetComponent<Animator>();
         enemyUnit = enemyGO.GetComponent<Unit>();
 
+        FindObjectOfType<AudioManager>().SetEAudios(enemyUnit.myAtk, enemyUnit.myDead);
         FindObjectOfType<UIManager>().ChangeStatsEnemy(enemyUnit);
         FindObjectOfType<UIManager>().ChangeStatsPlayer(playerUnit);
         currentRound++;
@@ -79,11 +80,21 @@ public class GameManager : MonoBehaviour
     {
         if(state == BattleState.WON)
         {
-            FindObjectOfType<UIManager>().OpenWinScreen();
+            if (currentRound < enemyPrefab.Length)
+            {
+                FindObjectOfType<AudioManager>().EDeadAudio();
+                FindObjectOfType<UIManager>().OpenWinScreen();
+            }
+            else
+            {
+                FindObjectOfType<UIManager>().EndGameScreen();
+            }
+
         }
         else if(state == BattleState.LOST)
         {
-            //After lost
+            FindObjectOfType<AudioManager>().PDeadAudio();
+            FindObjectOfType<UIManager>().OpenLoseScreen();
         }
     }
 
@@ -170,18 +181,17 @@ public class GameManager : MonoBehaviour
 
     public void NextRound()
     {
-        if (currentRound < 10)
-        {
-            Destroy(enemyGO);
-            enemyGO = Instantiate(enemyPrefab[currentRound], enemyBattleStation);
-            FindObjectOfType<AnimateManager>().enemyAnimator = enemyGO.transform.GetChild(0).gameObject.GetComponent<Animator>();
-            enemyUnit = enemyGO.GetComponent<Unit>();
+        playerUnit.UpgradeAll();
+        Destroy(enemyGO);
+        enemyGO = Instantiate(enemyPrefab[currentRound], enemyBattleStation);
+        FindObjectOfType<AnimateManager>().enemyAnimator = enemyGO.transform.GetChild(0).gameObject.GetComponent<Animator>();
+        enemyUnit = enemyGO.GetComponent<Unit>();
+        FindObjectOfType<AudioManager>().SetEAudios(enemyUnit.myAtk, enemyUnit.myDead);
 
-            FindObjectOfType<UIManager>().ChangeStatsEnemy(enemyUnit);
-            FindObjectOfType<UIManager>().ChangeStatsPlayer(playerUnit);
-            currentRound++;
+        FindObjectOfType<UIManager>().ChangeStatsEnemy(enemyUnit);
+        FindObjectOfType<UIManager>().ChangeStatsPlayer(playerUnit);
+        currentRound++;
 
-            PlayerTurn();
-        }
+        PlayerTurn();
     }
 }
