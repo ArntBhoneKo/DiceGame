@@ -30,6 +30,7 @@ public class ButtonControl : MonoBehaviour
             yield break;
 
         FindObjectOfType<AudioManager>().ClickAudio();
+        buttonpressed = true;
         yield return new WaitForSecondsRealtime(0.5f);
 
         FindObjectOfType<AudioManager>().DiceAudio();
@@ -40,7 +41,6 @@ public class ButtonControl : MonoBehaviour
         diceTotal = (((dice1 + dice2) + (dice3 + dice4)) + 4);
         FindObjectOfType<AnimateManager>().Roll(dice1, dice2, dice3, dice4);
 
-        buttonpressed = true;
         yield return new WaitForSecondsRealtime(FindObjectOfType<AnimateManager>().rollTime + FindObjectOfType<GameManager>().atkTime);
         
         FindObjectOfType<GameManager>().PlayerAttack(diceTotal);
@@ -157,6 +157,42 @@ public class ButtonControl : MonoBehaviour
     public void ExitGame()
     {
         Application.Quit();
+    }
+
+    public void NextAction()
+    {
+        int actionNum = FindObjectOfType<GameManager>().action;
+        FindObjectOfType<AudioManager>().ClickAudio();
+        FindObjectOfType<UIManager>().ChangeActionText();
+        if (actionNum < 2)
+        {
+            FindObjectOfType<GameManager>().action++;
+            FindObjectOfType<UIManager>().ChangeActionText();
+        }
+        else
+        {
+            FindObjectOfType<GameManager>().action = 0;
+            FindObjectOfType<UIManager>().ChangeActionText();
+        }
+        
+    }
+    public void PervAction()
+    {
+        int actionNum = FindObjectOfType<GameManager>().action;
+        FindObjectOfType<AudioManager>().ClickAudio();
+        if (buttonpressed)
+            return;
+            
+        if (actionNum > 0)
+        {
+            FindObjectOfType<GameManager>().action--;
+            FindObjectOfType<UIManager>().ChangeActionText();
+        }
+        else
+        {
+            FindObjectOfType<GameManager>().action = 2;
+            FindObjectOfType<UIManager>().ChangeActionText();
+        }
     }
     
 }

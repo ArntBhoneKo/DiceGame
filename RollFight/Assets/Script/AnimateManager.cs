@@ -39,7 +39,6 @@ public class AnimateManager : MonoBehaviour
         diceP4.SetBool("PRoll", false);
 
         yield return new WaitForSecondsRealtime(FindObjectOfType<GameManager>().atkTime);
-        EnemyAnimHit();
         PlayerAnimAtk();
     }
 
@@ -77,7 +76,12 @@ public class AnimateManager : MonoBehaviour
 
     public void PlayerAnimAtk()
     {
-        playerAnimator.SetTrigger("Atk");
+        int actionNum = FindObjectOfType<GameManager>().action;
+        if (actionNum == 0)
+        {
+            playerAnimator.SetTrigger("Atk");
+            EnemyAnimHit();
+        }
     }
 
     public void PlayerAnimDeath(bool alive)

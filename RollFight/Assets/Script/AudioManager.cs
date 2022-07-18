@@ -5,17 +5,18 @@ using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
-    [SerializeField] public AudioClip diceRoll;
+    public AudioClip diceRoll;
 
     [Header("Player")]
-    [SerializeField] public AudioClip playerAtk;
-    [SerializeField] public AudioClip playerDead;
+    public AudioClip playerAtk;
+    public AudioClip playerDead;
+    public AudioClip playerOtherAction;
 
     [Header("Enemy")]
-    [SerializeField] public AudioClip enemyAtk;
-    [SerializeField] public AudioClip enemyDead;
+    public AudioClip enemyAtk;
+    public AudioClip enemyDead;
 
-    [SerializeField] public AudioClip clickSFX;
+    public AudioClip clickSFX;
     [SerializeField] AudioSource sfxSource;
     void Awake()
     {
@@ -37,7 +38,19 @@ public class AudioManager : MonoBehaviour
 
     public void PAtkAudio() 
     {
-        sfxSource.PlayOneShot(playerAtk, 1f);
+        int actionNum = FindObjectOfType<GameManager>().action;
+        if (actionNum == 0)
+        {
+            sfxSource.PlayOneShot(playerAtk, 1f);
+        }
+        else if (actionNum == 1)
+        {
+            sfxSource.PlayOneShot(playerOtherAction, 1f);
+        }
+        else if (actionNum == 2)
+        {
+            sfxSource.PlayOneShot(playerOtherAction, 1f);
+        }
     }
 
     public void PDeadAudio() 

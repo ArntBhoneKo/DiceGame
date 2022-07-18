@@ -16,6 +16,8 @@ public class UIManager : MonoBehaviour
     public GameObject menuScreen;
     public GameObject creditScreen;
     public GameObject guideScreen;
+    public TextMeshProUGUI actionText;
+    public TextMeshProUGUI roundText;
 
     [Header("Enemy")]
     public TextMeshProUGUI nameText;
@@ -169,6 +171,28 @@ public class UIManager : MonoBehaviour
     {
         guideScreen.SetActive(false);
         menuScreen.SetActive(true);
+    }
+
+    public void ChangeActionText()
+    {
+        int actionNum = FindObjectOfType<GameManager>().action;
+        if (actionNum == 0)
+        {
+            actionText.text = "Attack";
+        }
+        else if (actionNum == 1)
+        {
+            actionText.text = "Buff";
+        }
+        else if (actionNum == 2)
+        {
+            actionText.text = "Heal";
+        }
+    }
+
+    public void ChangeRound(int round)
+    {
+        roundText.text = "Round " + round.ToString();
     }
 
 }

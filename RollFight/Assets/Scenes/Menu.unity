@@ -3749,6 +3749,7 @@ MonoBehaviour:
   diceRoll: {fileID: 8300000, guid: 5872bb7ad433b8e4f9c87fc66ac21552, type: 3}
   playerAtk: {fileID: 8300000, guid: 1e17118faf9ac434b9a661386294ee6a, type: 3}
   playerDead: {fileID: 8300000, guid: 654553e0fc07a8c4ca7a34c8426e7a69, type: 3}
+  playerOtherAction: {fileID: 8300000, guid: fd552319a1f28124abe64b5e765a996b, type: 3}
   enemyAtk: {fileID: 0}
   enemyDead: {fileID: 0}
   clickSFX: {fileID: 8300000, guid: 0ab22b59e277cd840a6f8f8c0d91cb60, type: 3}
@@ -4960,6 +4961,8 @@ MonoBehaviour:
   menuScreen: {fileID: 888690599}
   creditScreen: {fileID: 275738916}
   guideScreen: {fileID: 2102190760}
+  actionText: {fileID: 0}
+  roundText: {fileID: 0}
   nameText: {fileID: 0}
   hpText: {fileID: 0}
   atkText: {fileID: 0}

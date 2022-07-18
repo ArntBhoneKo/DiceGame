@@ -6,18 +6,19 @@ using TMPro;
 public class Unit : MonoBehaviour
 {
     public string unitName;
-    public int maxhp;
-    public int currenthp;
-    public int atk;
+    public float maxhp;
+    public float currenthp;
+    public float atk;
     public float def;
     float damage;
     public TextMeshProUGUI dmgText;
     public AudioClip myAtk;
     public AudioClip myDead;
+    public float buffAmount = 0;
 
-    public bool TakeDamage(float dice, float dmg)
+    public bool TakeDamage(float dice, float atk)
     {
-        damage = (dice * (dmg / def));
+        damage = (dice * (atk / def));
         currenthp -= Mathf.RoundToInt(damage);
         StartCoroutine(ShowPlayerDmg(Mathf.RoundToInt(damage)));
 
@@ -66,5 +67,34 @@ public class Unit : MonoBehaviour
         {
             currenthp = maxhp;
         }
+    }
+    public void BuffAction(float dice)
+    {
+        float amount = Mathf.RoundToInt(dice / 4);
+        buffAmount += amount;
+        atk += amount;
+        def += amount;
+    }
+
+    public void HealAction(float dice)
+    {
+        float amount = Mathf.RoundToInt((dice / 24) * 100);
+        buffAmount += amount;
+        atk += amount;
+        def += amount;
+    }
+
+    public void ResetBuff()
+    {        
+        atk -= buffAmount;
+        def -= buffAmount;
+        
+        StartCoroutine(ResetBuffAmount());
+    }
+
+    IEnumerator ResetBuffAmount()
+    {
+        yield return new WaitForSeconds(1f);
+        buffAmount = 0;
     }
 }

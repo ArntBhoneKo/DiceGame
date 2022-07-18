@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public bool luckyRoll = false;
     public bool eluckyRoll = false;
     public int currentRound = 0;
+    public int action = 0;
     public BattleState state;
 
     // Start is called before the first frame update
@@ -40,6 +41,7 @@ public class GameManager : MonoBehaviour
         FindObjectOfType<UIManager>().ChangeStatsEnemy(enemyUnit);
         FindObjectOfType<UIManager>().ChangeStatsPlayer(playerUnit);
         currentRound++;
+        FindObjectOfType<UIManager>().ChangeRound(currentRound);
 
         yield return new WaitForSeconds(1f);
 
@@ -70,10 +72,25 @@ public class GameManager : MonoBehaviour
 
     public void PlayerAttack(int diceTtl)
     {
-        bool isDead = enemyUnit.TakeDamage(diceTtl, playerUnit.atk);
+        if (action == 0)
+        {
+            bool isDead = enemyUnit.TakeDamage(diceTtl, playerUnit.atk);
 
-        UIUpdate();
-        StartCoroutine(PlayerEndTurn(isDead));
+            UIUpdate();
+            StartCoroutine(PlayerEndTurn(isDead));
+        }
+        else if (action == 1)
+        {
+            playerUnit.BuffAction(diceTtl);
+            UIUpdate();
+            StartCoroutine(PlayerEndTurn(false));
+        }
+        else if (action == 2)
+        {
+            playerUnit.HealAction(diceTtl);
+            UIUpdate();
+            StartCoroutine(PlayerEndTurn(false));
+        }
     }
 
     void EndBattle()
@@ -82,6 +99,7 @@ public class GameManager : MonoBehaviour
         {
             if (currentRound < enemyPrefab.Length)
             {
+                playerUnit.ResetBuff();
                 FindObjectOfType<AudioManager>().EDeadAudio();
                 FindObjectOfType<UIManager>().OpenWinScreen();
             }
@@ -191,6 +209,7 @@ public class GameManager : MonoBehaviour
         FindObjectOfType<UIManager>().ChangeStatsEnemy(enemyUnit);
         FindObjectOfType<UIManager>().ChangeStatsPlayer(playerUnit);
         currentRound++;
+        FindObjectOfType<UIManager>().ChangeRound(currentRound);
 
         PlayerTurn();
     }
